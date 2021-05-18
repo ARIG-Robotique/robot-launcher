@@ -1,0 +1,7 @@
+{
+    "buttons": {
+        "run": "echo run",
+        "debug": "echo debug",
+        "monitoring": "echo monitoring"
+    }
+}
