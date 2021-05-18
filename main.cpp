@@ -3,16 +3,18 @@
 #include <QDebug>
 #include <QCursor>
 #include <ctime>
+#include <iostream>
 
-#include "common.h"
+#include "launchermodel.h"
 #include "spdlog/sinks/basic_file_sink.h"
 
+using namespace std;
+
 void printUsage() {
-    cerr << "Usage : robot-launcher /path/config.json [debug]" << endl;
+    cerr << "Usage : robot-launcher [debug]" << endl;
 }
 
-void qDebugToSpdLog(QtMsgType type, const QMessageLogContext &context, const QString &msg)
-{
+void qDebugToSpdLog(QtMsgType type, const QMessageLogContext &context, const QString &msg) {
     Q_UNUSED(context)
     switch (type) {
         case QtDebugMsg:
@@ -31,9 +33,8 @@ void qDebugToSpdLog(QtMsgType type, const QMessageLogContext &context, const QSt
     }
 }
 
-int main(int argc, char *argv[])
-{
-    if (argc < 2) {
+int main(int argc, char *argv[]) {
+    if (argc < 1) {
         printUsage();
         return 1;
     }
@@ -57,6 +58,9 @@ int main(int argc, char *argv[])
     qInstallMessageHandler(qDebugToSpdLog);
 
     spdlog::info("Démarrage de l'application");
+
+    // Enregistrement du model
+    qmlRegisterSingletonType<LauncherModel>("org.arig.model", 1, 0, "LauncherModel", LauncherModel::singletonProvider);
 
     // QML Application
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

@@ -14,7 +14,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += $$files(*.h, true) $$files(*.hpp, true)
-
 SOURCES += $$files(*.cpp, true)
 
 RESOURCES += qml.qrc
@@ -27,8 +26,10 @@ QML_DESIGNER_IMPORT_PATH =
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
+else: unix:!android: target.path = /home/pi
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    config.json
+    README.md \
+    robot-launcher.sh \
+    robot.png

@@ -1,16 +1,12 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import org.arig.model 1.0
 
 ApplicationWindow {
     id: window
     visible: true
     width: 800
-    maximumWidth: 800
-    minimumWidth: 800
     height: 480
-    maximumHeight: 480
-    minimumHeight: 480
-    title: qsTr("Robot launcher")
 
     header: ToolBar {
         id: toolBar
@@ -43,14 +39,12 @@ ApplicationWindow {
         padding: 10
         spacing: 20
 
-
-
         Image {
             anchors.left: parent.left
             anchors.right: parent.horizontalCenter
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            source: "2020-nerell.png"
+            source: "file:./robot.png"
             mipmap: true
             fillMode: Image.PreserveAspectFit
             anchors.rightMargin: 5
@@ -74,15 +68,23 @@ ApplicationWindow {
 
             Button {
                 text: qsTr("Run")
-                clip: false
+                onClicked: {
+                    LauncherModel.action = "run"
+                }
             }
 
             Button {
                 text: qsTr("Monitoring")
+                onClicked: {
+                    LauncherModel.action = "monitoring"
+                }
             }
 
             Button {
                 text: qsTr("Debug")
+                onClicked: {
+                    LauncherModel.action = "debug"
+                }
             }
         }
 
@@ -138,7 +140,7 @@ ApplicationWindow {
                 Button {
                     text: "Oui"
                     onClicked: {
-                        // TODO Quitter
+                        LauncherModel.action = "exit"
                     }
                 }
             }
