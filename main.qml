@@ -45,7 +45,6 @@ ApplicationWindow {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             source: "file:./robot.png"
-            mipmap: true
             fillMode: Image.PreserveAspectFit
             anchors.rightMargin: 5
             anchors.leftMargin: 10
@@ -56,32 +55,59 @@ ApplicationWindow {
 
         Column {
             id: column
-            anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.horizontalCenter
             anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
             anchors.leftMargin: 5
             anchors.rightMargin: 10
             padding: 10
-            spacing: 20
+            spacing: 10
             anchors.bottomMargin: 0
             anchors.topMargin: 0
 
+            Image {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                source: "logo.png"
+                anchors.rightMargin: 0
+                anchors.leftMargin: 0
+                fillMode: Image.PreserveAspectFit
+
+
+            }
+
             Button {
+                height: 55
                 text: qsTr("Run")
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+                anchors.leftMargin: 10
                 onClicked: {
                     LauncherModel.action = "run"
                 }
             }
 
             Button {
+                height: 55
                 text: qsTr("Monitoring")
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+                anchors.leftMargin: 10
                 onClicked: {
                     LauncherModel.action = "monitoring"
                 }
             }
 
             Button {
+                height: 55
                 text: qsTr("Debug")
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+                anchors.leftMargin: 10
                 onClicked: {
                     LauncherModel.action = "debug"
                 }
@@ -94,7 +120,7 @@ ApplicationWindow {
         id: exitConfirmation
         modal: true
         focus: true
-        width: 350
+        width: 400
         height: 150
         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
@@ -131,14 +157,28 @@ ApplicationWindow {
                 anchors.rightMargin: 5
 
                 Button {
-                    text: "Non"
+                    text: "Annuler"
                     onClicked: {
                         exitConfirmation.close();
                     }
                 }
 
                 Button {
-                    text: "Oui"
+                    text: "Reboot"
+                    onClicked: {
+                        LauncherModel.action = "reboot"
+                    }
+                }
+
+                Button {
+                    text: "Poweroff"
+                    onClicked: {
+                        LauncherModel.action = "poweroff"
+                    }
+                }
+
+                Button {
+                    text: "Stop"
                     onClicked: {
                         LauncherModel.action = "exit"
                     }

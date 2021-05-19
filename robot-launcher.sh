@@ -6,6 +6,7 @@ ROBOT_NAME=$(cat robot-name)
 while [ "${ACTION}" != "exit" ] ; do
     cd
     ./robot-launcher
+    cd ${ROBOT_NAME}
 
     ACTION=$(cat /tmp/robot-action)
     echo "Action : ${ACTION}"
@@ -17,5 +18,9 @@ while [ "${ACTION}" != "exit" ] ; do
         ./monitoring.sh
     elif [ "${ACTION}" == "debug" ] ; then
         ./debug.sh
+    elif [ "${ACTION}" == "reboot" ] ; then
+        sudo reboot
+    elif [ "${ACTION}" == "poweroff" ] ; then
+        sudo poweroff
     fi
 done
