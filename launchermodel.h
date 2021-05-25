@@ -13,6 +13,7 @@ class LauncherModel : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString action READ getAction WRITE setAction NOTIFY actionChanged)
+    Q_PROPERTY(QString ipAddress READ getIpAddress NOTIFY ipAddressChanged)
 
     static LauncherModel* instance;
     LauncherModel(QObject *parent = nullptr);
@@ -25,9 +26,14 @@ public:
     QString getAction();
     void setAction(QString action);
 
+    QString getIpAddress();
+
 signals:
     void actionChanged(QString newValue);
+    void ipAddressChanged();
 
+private:
+    QString ipAddress;
 };
 
 #endif // LAUNCHERMODEL_H

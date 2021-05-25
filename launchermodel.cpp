@@ -1,3 +1,10 @@
+#include <QTextStream>
+#include <QFile>
+#include <QIODevice>
+#include <QList>
+#include <QNetworkInterface>
+
+
 #include "launchermodel.h"
 #include "spdlog/spdlog.h"
 
@@ -24,6 +31,7 @@ LauncherModel::LauncherModel(QObject *parent) : QObject(parent) {
 
 QString LauncherModel::getAction() {
     spdlog::info("Get action, NOP");
+    return "";
 }
 
 void LauncherModel::setAction(QString action) {
@@ -41,4 +49,33 @@ void LauncherModel::setAction(QString action) {
 
     spdlog::info("Fermeture du lanceur");
     QGuiApplication::exit();
+}
+
+QString LauncherModel::getIpAddress() {
+    if (this->ipAddress == nullptr) {
+        this->ipAddress = "";
+        QList<QNetworkInterface> allInterfaces = QNetworkInterface::allInterfaces();
+        QNetworkInterface eth;
+
+        foreach(eth, allInterfaces) {
+            QList<QNetworkAddressEntry> allEntries = eth.addressEntries();
+            foreach (const QNetworkAddressEntry entry, allEntries) {
+                if (entry.ip().protocol() != QAbstractSocket::IPv4Protocol || entry.ip().isLoopback()) {
+                    continue;
+                }
+                if (this->ipAddress.length() != 0) {
+                    this->ipAddress.append(", ");
+                }
+
+                this->ipAddress.append(entry.ip().toString())
+                        .append(" (")
+                        .append(eth.name())
+                        .append(")");
+            }
+        }
+
+        ipAddressChanged();
+    }
+
+    return this->ipAddress;
 }

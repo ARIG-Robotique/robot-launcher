@@ -4,6 +4,7 @@
 #include <QCursor>
 #include <ctime>
 #include <iostream>
+#include <string>
 
 #include "launchermodel.h"
 #include "spdlog/sinks/basic_file_sink.h"

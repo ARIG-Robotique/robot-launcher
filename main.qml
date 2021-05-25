@@ -62,7 +62,7 @@ ApplicationWindow {
             anchors.leftMargin: 5
             anchors.rightMargin: 10
             padding: 10
-            spacing: 10
+            spacing: 5
             anchors.bottomMargin: 0
             anchors.topMargin: 0
 
@@ -111,6 +111,14 @@ ApplicationWindow {
                 onClicked: {
                     LauncherModel.action = "debug"
                 }
+            }
+
+            Label {
+                text: qsTr("IP (interface) : ") + LauncherModel.ipAddress
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+                anchors.leftMargin: 10
             }
         }
 
