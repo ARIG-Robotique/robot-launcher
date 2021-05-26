@@ -51,31 +51,36 @@ void LauncherModel::setAction(QString action) {
     QGuiApplication::exit();
 }
 
-QString LauncherModel::getIpAddress() {
-    if (this->ipAddress == nullptr) {
-        this->ipAddress = "";
-        QList<QNetworkInterface> allInterfaces = QNetworkInterface::allInterfaces();
-        QNetworkInterface eth;
+void LauncherModel::setNetworkInfo(QString value) {
+    Q_UNUSED(value)
 
-        foreach(eth, allInterfaces) {
-            QList<QNetworkAddressEntry> allEntries = eth.addressEntries();
-            foreach (const QNetworkAddressEntry entry, allEntries) {
-                if (entry.ip().protocol() != QAbstractSocket::IPv4Protocol || entry.ip().isLoopback()) {
-                    continue;
-                }
-                if (this->ipAddress.length() != 0) {
-                    this->ipAddress.append(", ");
-                }
+    this->networkInfo = "";
+    QList<QNetworkInterface> allInterfaces = QNetworkInterface::allInterfaces();
+    QNetworkInterface eth;
 
-                this->ipAddress.append(entry.ip().toString())
-                        .append(" (")
-                        .append(eth.name())
-                        .append(")");
+    foreach(eth, allInterfaces) {
+        QList<QNetworkAddressEntry> allEntries = eth.addressEntries();
+        foreach (const QNetworkAddressEntry entry, allEntries) {
+            if (entry.ip().protocol() != QAbstractSocket::IPv4Protocol || entry.ip().isLoopback()) {
+                continue;
             }
-        }
+            if (this->networkInfo.length() != 0) {
+                this->networkInfo.append(", ");
+            }
 
-        ipAddressChanged();
+            this->networkInfo.append(entry.ip().toString())
+                    .append(" (")
+                    .append(eth.name())
+                    .append(")");
+        }
     }
 
-    return this->ipAddress;
+    networkInfoChanged(this->networkInfo);
+}
+
+QString LauncherModel::getNetworkInfo() {
+    if (this->networkInfo == nullptr) {
+        this->setNetworkInfo("");
+    }
+    return this->networkInfo;
 }

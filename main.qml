@@ -26,6 +26,13 @@ ApplicationWindow {
         }
     }
 
+    Timer {
+        interval: 2000
+        running: true
+        repeat: true
+        onTriggered: LauncherModel.networkInfo = "refresh"
+    }
+
     Row {
         id: row
         anchors.left: parent.left
@@ -114,14 +121,13 @@ ApplicationWindow {
             }
 
             Label {
-                text: qsTr("IP (interface) : ") + LauncherModel.ipAddress
+                text: LauncherModel.networkInfo
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.rightMargin: 10
                 anchors.leftMargin: 10
             }
         }
-
     }
 
     Popup {
