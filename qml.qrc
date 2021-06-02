@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>logo.png</file>
+        <file>logo2020.png</file>
     </qresource>
 </RCC>

@@ -46,17 +46,35 @@ ApplicationWindow {
         padding: 10
         spacing: 20
 
-        Image {
+        Frame {
+            id: frame
             anchors.left: parent.left
-            anchors.right: parent.horizontalCenter
+            anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            source: "file:./robot.png"
-            fillMode: Image.PreserveAspectFit
-            anchors.rightMargin: 5
-            anchors.leftMargin: 10
-            anchors.bottomMargin: 10
-            anchors.topMargin: 10
+            anchors.rightMargin: 400
+            anchors.leftMargin: 0
+            anchors.bottomMargin: 0
+            anchors.topMargin: 0
+
+            Image {
+                anchors.fill: parent
+                source: "file:./robot.png"
+                fillMode: Image.PreserveAspectFit
+
+            }
+
+            Image {
+                width: 125
+                height: 126
+                anchors.left: parent.left
+                anchors.top: parent.top
+                source: "logo2020.png"
+                anchors.leftMargin: 0
+                anchors.topMargin: 0
+                fillMode: Image.PreserveAspectFit
+
+            }
 
         }
 
