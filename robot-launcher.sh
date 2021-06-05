@@ -11,7 +11,6 @@ while [ "${ACTION}" != "exit" ] ; do
     ACTION=$(cat /tmp/robot-action)
     echo "Action : ${ACTION}"
 
-    cd "${ROBOT_NAME}"
     if [ "${ACTION}" == "run" ] ; then
         ./run.sh
     elif [ "${ACTION}" == "monitoring" ] ; then

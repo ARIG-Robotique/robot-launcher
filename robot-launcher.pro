@@ -31,5 +31,4 @@ else: unix:!android: target.path = /home/pi
 
 DISTFILES += \
     README.md \
-    robot-launcher.sh \
-    robot.png
+    robot-launcher.sh
