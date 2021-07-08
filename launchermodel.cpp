@@ -4,7 +4,6 @@
 #include <QList>
 #include <QNetworkInterface>
 
-
 #include "launchermodel.h"
 #include "spdlog/spdlog.h"
 
@@ -76,6 +75,15 @@ void LauncherModel::setNetworkInfo(QString value) {
     }
 
     networkInfoChanged(this->networkInfo);
+
+    // Check si on a un fichier externe
+    QFile runFile("/tmp/external-dir/run");
+    QFile monitoringFile("/tmp/external-dir/monitoring");
+    if (runFile.exists()) {
+        setAction("run");
+    } else if (monitoringFile.exists()) {
+        setAction("monitoring");
+    }
 }
 
 QString LauncherModel::getNetworkInfo() {
