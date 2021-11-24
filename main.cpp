@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    const bool debug = argc >=3 && strcmp(argv[2], "debug") == 0;
+    //const bool debug = argc >=3 && strcmp(argv[2], "debug") == 0;
     const bool debug = argc >=2 && strcmp(argv[1], "debug") == 0;
 
     // Construit la date d'execution

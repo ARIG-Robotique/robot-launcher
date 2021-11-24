@@ -69,13 +69,11 @@ ApplicationWindow {
                 height: 126
                 anchors.left: parent.left
                 anchors.top: parent.top
-                source: "qrc:logo2020.png"
+                source: "qrc:coupe.png"
                 anchors.leftMargin: 0
                 anchors.topMargin: 0
                 fillMode: Image.PreserveAspectFit
-
             }
-
         }
 
         Column {
