@@ -30,5 +30,4 @@ else: unix:!android: target.path = /home/pi
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    README.md \
-    robot-launcher.sh
+    README.md
