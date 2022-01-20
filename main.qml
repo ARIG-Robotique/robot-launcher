@@ -15,6 +15,7 @@ ApplicationWindow {
         Label {
             text: qsTr("Mode d'exécution")
             anchors.centerIn: parent
+            font.pixelSize: Qt.application.font.pixelSize * 1.6
         }
 
         ToolButton {
