@@ -47,32 +47,26 @@ ApplicationWindow {
         padding: 10
         spacing: 20
 
-        Frame {
+        Column {
             id: frame
             anchors.left: parent.left
-            anchors.right: parent.right
+            anchors.right: parent.horizontalCenter
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            anchors.rightMargin: 400
-            anchors.leftMargin: 0
-            anchors.bottomMargin: 0
-            anchors.topMargin: 0
+            padding: 10
+            spacing: 5
 
             Image {
-                anchors.fill: parent
+                height: 250
+                anchors.horizontalCenter: parent.horizontalCenter
                 source: "file:./robot.png"
                 fillMode: Image.PreserveAspectFit
-
             }
 
             Image {
-                width: 125
-                height: 126
-                anchors.left: parent.left
-                anchors.top: parent.top
-                source: "qrc:coupe.png"
-                anchors.leftMargin: 0
-                anchors.topMargin: 0
+                height: 150
+                anchors.horizontalCenter: parent.horizontalCenter
+                source: "qrc:logo.png"
                 fillMode: Image.PreserveAspectFit
             }
         }
@@ -83,27 +77,20 @@ ApplicationWindow {
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            anchors.leftMargin: 5
-            anchors.rightMargin: 10
             padding: 10
             spacing: 5
-            anchors.bottomMargin: 0
-            anchors.topMargin: 0
 
             Image {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                source: "logo.png"
-                anchors.rightMargin: 0
-                anchors.leftMargin: 0
+                anchors.horizontalCenter: parent.horizontalCenter
+                source: "qrc:coupe.png"
                 fillMode: Image.PreserveAspectFit
-
-
+                height: 150
             }
 
             Button {
-                height: 55
+                height: 70
                 text: qsTr("Run")
+                font.pointSize: 15
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.rightMargin: 10
@@ -114,8 +101,9 @@ ApplicationWindow {
             }
 
             Button {
-                height: 55
+                height: 70
                 text: qsTr("Monitoring")
+                font.pointSize: 15
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.rightMargin: 10
@@ -126,8 +114,9 @@ ApplicationWindow {
             }
 
             Button {
-                height: 55
+                height: 70
                 text: qsTr("Debug")
+                font.pointSize: 15
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.rightMargin: 10
