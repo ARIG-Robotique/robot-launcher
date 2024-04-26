@@ -79,9 +79,9 @@ void LauncherModel::refresh() {
     emit nerellStateChanged(this->nerellState);
     emit nerellAddressChanged(this->nerellAddress);
 
-    //this->updateRobotStates("overlord", &this->overlordState, &this->overlordAddress);
-    //emit overlordStateChanged(this->overlordState);
-    //emit overlordAddressChanged(this->overlordAddress);
+    this->updateRobotStates("overlord", &this->overlordState, &this->overlordAddress);
+    emit overlordStateChanged(this->overlordState);
+    emit overlordAddressChanged(this->overlordAddress);
 
     this->updateRobotStates("pami-triangle", &this->triangleState, &this->triangleAddress);
     emit triangleStateChanged(this->triangleState);

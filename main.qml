@@ -44,7 +44,7 @@ ApplicationWindow {
         onTriggered: LauncherModel.refresh()
     }
 
-    RowLayout {
+    Row {
         id: row
         anchors.left: parent.left
         anchors.right: parent.right
@@ -54,7 +54,7 @@ ApplicationWindow {
         anchors.leftMargin: 10
         anchors.bottomMargin: 10
         anchors.topMargin: 10
-
+        padding: 10
         spacing: 20
 
         Column {
@@ -84,7 +84,7 @@ ApplicationWindow {
                 address: LauncherModel.triangleAddress
                 stateColor: getBooleanColor(LauncherModel.triangleState)
             }
-            StateComponent {
+            /*StateComponent {
                 id: stateCarre
                 libelle: "Carré"
                 address: LauncherModel.carreAddress
@@ -95,43 +95,30 @@ ApplicationWindow {
                 libelle: "Rond"
                 address: LauncherModel.rondAddress
                 stateColor: getBooleanColor(LauncherModel.rondState)
-            }
+            }*/
 
             Image {
-                height: 300
+                height: 250
                 anchors.horizontalCenter: parent.horizontalCenter
                 source: "file:./robot.png"
                 fillMode: Image.PreserveAspectFit
             }
-
         }
 
-        ColumnLayout {
+        Column {
             id: column
             anchors.left: parent.horizontalCenter
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
+            padding: 10
             spacing: 5
 
-            Row {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-
-                Image {
-                    height: 150
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    source: "qrc:logo.png"
-                    fillMode: Image.PreserveAspectFit
-                }
-
-                Image {
-                    height: 150
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    source: "qrc:coupe.png"
-                    fillMode: Image.PreserveAspectFit
-                }
+            Image {
+                anchors.horizontalCenter: parent.horizontalCenter
+                source: "qrc:coupe.png"
+                fillMode: Image.PreserveAspectFit
+                height: 150
             }
 
             Button {
