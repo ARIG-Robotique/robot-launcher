@@ -79,10 +79,16 @@ void LauncherModel::setNetworkInfo(QString value) {
     // Check si on a un fichier externe
     QFile runFile("/tmp/external-dir/run");
     QFile monitoringFile("/tmp/external-dir/monitoring");
+    QFile poweroffFile("/tmp/external-dir/poweroff");
+    QFile rebootFile("/tmp/external-dir/reboot");
     if (runFile.exists()) {
         setAction("run");
     } else if (monitoringFile.exists()) {
         setAction("monitoring");
+    } else if (poweroffFile.exists()) {
+        setAction("poweroff");
+    } else if (rebootFile.exists()) {
+        setAction("reboot");
     }
 }
 
