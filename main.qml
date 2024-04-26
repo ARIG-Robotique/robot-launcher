@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import QtQuick.Layouts 1.1
 import org.arig.model 1.0
 
 ApplicationWindow {
@@ -43,7 +44,7 @@ ApplicationWindow {
         onTriggered: LauncherModel.refresh()
     }
 
-    Row {
+    RowLayout {
         id: row
         anchors.left: parent.left
         anchors.right: parent.right
@@ -53,7 +54,7 @@ ApplicationWindow {
         anchors.leftMargin: 10
         anchors.bottomMargin: 10
         anchors.topMargin: 10
-        padding: 10
+
         spacing: 20
 
         Column {
@@ -97,34 +98,40 @@ ApplicationWindow {
             }
 
             Image {
-                height: 250
+                height: 300
                 anchors.horizontalCenter: parent.horizontalCenter
                 source: "file:./robot.png"
                 fillMode: Image.PreserveAspectFit
             }
 
-            Image {
-                height: 150
-                anchors.horizontalCenter: parent.horizontalCenter
-                source: "qrc:logo.png"
-                fillMode: Image.PreserveAspectFit
-            }
         }
 
-        Column {
+        ColumnLayout {
             id: column
             anchors.left: parent.horizontalCenter
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            padding: 10
             spacing: 5
 
-            Image {
-                anchors.horizontalCenter: parent.horizontalCenter
-                source: "qrc:coupe.png"
-                fillMode: Image.PreserveAspectFit
-                height: 150
+            Row {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+
+                Image {
+                    height: 150
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    source: "qrc:logo.png"
+                    fillMode: Image.PreserveAspectFit
+                }
+
+                Image {
+                    height: 150
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    source: "qrc:coupe.png"
+                    fillMode: Image.PreserveAspectFit
+                }
             }
 
             Button {
