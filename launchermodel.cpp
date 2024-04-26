@@ -79,21 +79,21 @@ void LauncherModel::refresh() {
     emit nerellStateChanged(this->nerellState);
     emit nerellAddressChanged(this->nerellAddress);
 
-    this->updateRobotStates("overlord", &this->overlordState, &this->overlordAddress);
-    emit overlordStateChanged(this->overlordState);
-    emit overlordAddressChanged(this->overlordAddress);
+    //this->updateRobotStates("overlord", &this->overlordState, &this->overlordAddress);
+    //emit overlordStateChanged(this->overlordState);
+    //emit overlordAddressChanged(this->overlordAddress);
 
     this->updateRobotStates("pami-triangle", &this->triangleState, &this->triangleAddress);
     emit triangleStateChanged(this->triangleState);
     emit triangleAddressChanged(this->triangleAddress);
 
-    this->updateRobotStates("pami-carre", &this->carreState, &this->carreAddress);
-    emit carreStateChanged(this->carreState);
-    emit carreAddressChanged(this->carreAddress);
+    //this->updateRobotStates("pami-carre", &this->carreState, &this->carreAddress);
+    //emit carreStateChanged(this->carreState);
+    //emit carreAddressChanged(this->carreAddress);
 
-    this->updateRobotStates("pami-rond", &this->rondState, &this->rondAddress);
-    emit rondStateChanged(this->rondState);
-    emit rondAddressChanged(this->rondAddress);
+    //this->updateRobotStates("pami-rond", &this->rondState, &this->rondAddress);
+    //emit rondStateChanged(this->rondState);
+    //emit rondAddressChanged(this->rondAddress);
 
     // Check si on a un fichier externe
     QFile runFile("/tmp/external-dir/run");
@@ -132,7 +132,7 @@ void LauncherModel::updateRobotStates(QString hostName, int *state, QString *add
 bool LauncherModel::checkServerConnection(QString hostName) {
     QTcpSocket cs;
     cs.connectToHost(hostName, 22);
-    cs.waitForConnected(10);
+    cs.waitForConnected(5);
     bool state = cs.state() == QTcpSocket::ConnectedState;
     cs.close();
     return state;
