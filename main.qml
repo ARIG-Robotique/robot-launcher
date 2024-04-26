@@ -8,6 +8,15 @@ ApplicationWindow {
     width: 800
     height: 480
 
+    function getBooleanColor(value) {
+        switch(value) {
+            case 0 : return "gray";
+            case 1 : return "red";
+            case 2 : return "orange";
+            default : return "green";
+        }
+    }
+
     header: ToolBar {
         id: toolBar
         contentHeight: exitButton.implicitHeight
@@ -31,7 +40,7 @@ ApplicationWindow {
         interval: 2000
         running: true
         repeat: true
-        onTriggered: LauncherModel.networkInfo = "refresh"
+        onTriggered: LauncherModel.refresh()
     }
 
     Row {
@@ -55,6 +64,37 @@ ApplicationWindow {
             anchors.bottom: parent.bottom
             padding: 10
             spacing: 5
+
+            StateComponent {
+                id: stateNerell
+                libelle: "Nerell"
+                address: LauncherModel.nerellAddress
+                stateColor: getBooleanColor(LauncherModel.nerellState)
+            }
+            StateComponent {
+                id: stateOdin
+                libelle: "Overlord"
+                address: LauncherModel.overlordAddress
+                stateColor: getBooleanColor(LauncherModel.overlordState)
+            }
+            StateComponent {
+                id: stateTriangle
+                libelle: "Triangle"
+                address: LauncherModel.triangleAddress
+                stateColor: getBooleanColor(LauncherModel.triangleState)
+            }
+            StateComponent {
+                id: stateCarre
+                libelle: "Carré"
+                address: LauncherModel.carreAddress
+                stateColor: getBooleanColor(LauncherModel.carreState)
+            }
+            StateComponent {
+                id: stateRond
+                libelle: "Rond"
+                address: LauncherModel.rondAddress
+                stateColor: getBooleanColor(LauncherModel.rondState)
+            }
 
             Image {
                 height: 250

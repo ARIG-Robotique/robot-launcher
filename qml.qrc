@@ -4,5 +4,6 @@
         <file>qtquickcontrols2.conf</file>
         <file>logo.png</file>
         <file>coupe.png</file>
+        <file>StateComponent.qml</file>
     </qresource>
 </RCC>

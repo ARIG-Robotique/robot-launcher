@@ -3,6 +3,8 @@
 #include <QIODevice>
 #include <QList>
 #include <QNetworkInterface>
+#include <QHostInfo>
+#include <QTcpSocket>
 
 #include "launchermodel.h"
 #include "spdlog/spdlog.h"
@@ -25,7 +27,6 @@ QObject* LauncherModel::singletonProvider(QQmlEngine *engine, QJSEngine *scriptE
 }
 
 LauncherModel::LauncherModel(QObject *parent) : QObject(parent) {
-
 }
 
 QString LauncherModel::getAction() {
@@ -50,13 +51,11 @@ void LauncherModel::setAction(QString action) {
     QGuiApplication::exit();
 }
 
-void LauncherModel::setNetworkInfo(QString value) {
-    Q_UNUSED(value)
-
-    this->networkInfo = "";
+void LauncherModel::refresh() {
     QList<QNetworkInterface> allInterfaces = QNetworkInterface::allInterfaces();
     QNetworkInterface eth;
 
+    this->networkInfo = "";
     foreach(eth, allInterfaces) {
         QList<QNetworkAddressEntry> allEntries = eth.addressEntries();
         foreach (const QNetworkAddressEntry entry, allEntries) {
@@ -73,8 +72,28 @@ void LauncherModel::setNetworkInfo(QString value) {
                     .append(")");
         }
     }
+    emit networkInfoChanged(this->networkInfo);
 
-    networkInfoChanged(this->networkInfo);
+    // Check hosts states
+    this->updateRobotStates("nerell", &this->nerellState, &this->nerellAddress);
+    emit nerellStateChanged(this->nerellState);
+    emit nerellAddressChanged(this->nerellAddress);
+
+    this->updateRobotStates("overlord", &this->overlordState, &this->overlordAddress);
+    emit overlordStateChanged(this->overlordState);
+    emit overlordAddressChanged(this->overlordAddress);
+
+    this->updateRobotStates("pami-triangle", &this->triangleState, &this->triangleAddress);
+    emit triangleStateChanged(this->triangleState);
+    emit triangleAddressChanged(this->triangleAddress);
+
+    this->updateRobotStates("pami-carre", &this->carreState, &this->carreAddress);
+    emit carreStateChanged(this->carreState);
+    emit carreAddressChanged(this->carreAddress);
+
+    this->updateRobotStates("pami-rond", &this->rondState, &this->rondAddress);
+    emit rondStateChanged(this->rondState);
+    emit rondAddressChanged(this->rondAddress);
 
     // Check si on a un fichier externe
     QFile runFile("/tmp/external-dir/run");
@@ -92,9 +111,68 @@ void LauncherModel::setNetworkInfo(QString value) {
     }
 }
 
-QString LauncherModel::getNetworkInfo() {
-    if (this->networkInfo == nullptr) {
-        this->setNetworkInfo("");
+void LauncherModel::updateRobotStates(QString hostName, int *state, QString *address) {
+    QHostInfo hostInfo = QHostInfo::fromName(hostName);
+    if (hostInfo.error() == QHostInfo::NoError) {
+        *state = 2;
+        if (hostInfo.addresses().isEmpty()) {
+            *address = "Unknown";
+        } else {
+            *address = hostInfo.addresses().at(0).toString();
+        }
+        if (checkServerConnection(hostName)) {
+            *state = 3;
+        }
+    } else {
+        *state = 1;
+        *address = hostInfo.errorString();
     }
+}
+
+bool LauncherModel::checkServerConnection(QString hostName) {
+    QTcpSocket cs;
+    cs.connectToHost(hostName, 22);
+    cs.waitForConnected(10);
+    bool state = cs.state() == QTcpSocket::ConnectedState;
+    cs.close();
+    return state;
+}
+
+QString LauncherModel::getNetworkInfo() {
     return this->networkInfo;
+}
+
+int LauncherModel::getNerellState() {
+    return this->nerellState;
+}
+QString LauncherModel::getNerellAddress() {
+    return this->nerellAddress;
+}
+
+int LauncherModel::getOverlordState() {
+    return this->overlordState;
+}
+QString LauncherModel::getOverlordAddress() {
+    return this->overlordAddress;
+}
+
+int LauncherModel::getTriangleState() {
+    return this->triangleState;
+}
+QString LauncherModel::getTriangleAddress() {
+    return this->triangleAddress;
+}
+
+int LauncherModel::getCarreState() {
+    return this->carreState;
+}
+QString LauncherModel::getCarreAddress() {
+    return this->carreAddress;
+}
+
+int LauncherModel::getRondState() {
+return this->rondState;
+}
+QString LauncherModel::getRondAddress() {
+    return this->rondAddress;
 }
