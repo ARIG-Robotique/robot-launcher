@@ -95,11 +95,13 @@ void LauncherModel::refresh() {
     emit triangleStateChanged(this->triangleState);
     emit triangleAddressChanged(this->triangleAddress);
 
-    //this->updateRobotStates("pami-carre", &this->carreState, &this->carreAddress);
+    this->carreState = this->carreStatus->getLastState();
+    this->carreAddress = this->carreStatus->getAddress();
     emit carreStateChanged(this->carreState);
     emit carreAddressChanged(this->carreAddress);
 
-    //this->updateRobotStates("pami-rond", &this->rondState, &this->rondAddress);
+    this->rondState = this->rondStatus->getLastState();
+    this->rondAddress = this->rondStatus->getAddress();
     emit rondStateChanged(this->rondState);
     emit rondAddressChanged(this->rondAddress);
 

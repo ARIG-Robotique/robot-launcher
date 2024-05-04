@@ -84,7 +84,7 @@ ApplicationWindow {
                 address: LauncherModel.triangleAddress
                 stateColor: getBooleanColor(LauncherModel.triangleState)
             }
-            /*StateComponent {
+            StateComponent {
                 id: stateCarre
                 libelle: "Carré"
                 address: LauncherModel.carreAddress
@@ -95,7 +95,7 @@ ApplicationWindow {
                 libelle: "Rond"
                 address: LauncherModel.rondAddress
                 stateColor: getBooleanColor(LauncherModel.rondState)
-            }*/
+            }
 
             Image {
                 height: 250
