@@ -27,6 +27,11 @@ QObject* LauncherModel::singletonProvider(QQmlEngine *engine, QJSEngine *scriptE
 }
 
 LauncherModel::LauncherModel(QObject *parent) : QObject(parent) {
+    this->nerellStatus->start();
+    this->overlordStatus->start();
+    this->triangleStatus->start();
+    this->carreStatus->start();
+    this->rondStatus->start();
 }
 
 QString LauncherModel::getAction() {
@@ -75,25 +80,28 @@ void LauncherModel::refresh() {
     emit networkInfoChanged(this->networkInfo);
 
     // Check hosts states
-    this->updateRobotStates("nerell", &this->nerellState, &this->nerellAddress);
+    this->nerellState = this->nerellStatus->getLastState();
+    this->nerellAddress = this->nerellStatus->getAddress();
     emit nerellStateChanged(this->nerellState);
     emit nerellAddressChanged(this->nerellAddress);
 
-    this->updateRobotStates("overlord", &this->overlordState, &this->overlordAddress);
+    this->overlordState = this->overlordStatus->getLastState();
+    this->overlordAddress = this->overlordStatus->getAddress();
     emit overlordStateChanged(this->overlordState);
     emit overlordAddressChanged(this->overlordAddress);
 
-    this->updateRobotStates("pami-triangle", &this->triangleState, &this->triangleAddress);
+    this->triangleState = this->triangleStatus->getLastState();
+    this->triangleAddress = this->triangleStatus->getAddress();
     emit triangleStateChanged(this->triangleState);
     emit triangleAddressChanged(this->triangleAddress);
 
     //this->updateRobotStates("pami-carre", &this->carreState, &this->carreAddress);
-    //emit carreStateChanged(this->carreState);
-    //emit carreAddressChanged(this->carreAddress);
+    emit carreStateChanged(this->carreState);
+    emit carreAddressChanged(this->carreAddress);
 
     //this->updateRobotStates("pami-rond", &this->rondState, &this->rondAddress);
-    //emit rondStateChanged(this->rondState);
-    //emit rondAddressChanged(this->rondAddress);
+    emit rondStateChanged(this->rondState);
+    emit rondAddressChanged(this->rondAddress);
 
     // Check si on a un fichier externe
     QFile runFile("/tmp/external-dir/run");
@@ -109,33 +117,6 @@ void LauncherModel::refresh() {
     } else if (rebootFile.exists()) {
         setAction("reboot");
     }
-}
-
-void LauncherModel::updateRobotStates(QString hostName, int *state, QString *address) {
-    QHostInfo hostInfo = QHostInfo::fromName(hostName);
-    if (hostInfo.error() == QHostInfo::NoError) {
-        *state = 2;
-        if (hostInfo.addresses().isEmpty()) {
-            *address = "Unknown";
-        } else {
-            *address = hostInfo.addresses().at(0).toString();
-        }
-        if (checkServerConnection(hostName)) {
-            *state = 3;
-        }
-    } else {
-        *state = 1;
-        *address = hostInfo.errorString();
-    }
-}
-
-bool LauncherModel::checkServerConnection(QString hostName) {
-    QTcpSocket cs;
-    cs.connectToHost(hostName, 22);
-    cs.waitForConnected(5);
-    bool state = cs.state() == QTcpSocket::ConnectedState;
-    cs.close();
-    return state;
 }
 
 QString LauncherModel::getNetworkInfo() {
@@ -171,7 +152,7 @@ QString LauncherModel::getCarreAddress() {
 }
 
 int LauncherModel::getRondState() {
-return this->rondState;
+    return this->rondState;
 }
 QString LauncherModel::getRondAddress() {
     return this->rondAddress;

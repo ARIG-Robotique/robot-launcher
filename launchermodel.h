@@ -8,6 +8,8 @@
 #include <QFile>
 #include <QString>
 
+#include <devicestate.h>
+
 class LauncherModel : public QObject
 {
     Q_OBJECT
@@ -73,24 +75,27 @@ signals:
     void rondAddressChanged(QString newValue);
 
 private:
-    void updateRobotStates(QString hostName, int *state, QString *address);
-    bool checkServerConnection(QString hostName);
-
     QString networkInfo = "Refresh in progress...";
 
-    int nerellState = 0;
+    DeviceState *nerellStatus = new DeviceState("nerell");
+    DeviceState *overlordStatus = new DeviceState("overlord");
+    DeviceState *triangleStatus = new DeviceState("pami-triangle");
+    DeviceState *carreStatus = new DeviceState("pami-carre");
+    DeviceState *rondStatus = new DeviceState("pami-rond");
+
+    int nerellState;
     QString nerellAddress = "Refresh in progress...";
 
-    int overlordState = 0;
+    int overlordState;
     QString overlordAddress = "Refresh in progress...";
 
-    int triangleState = 0;
+    int triangleState;
     QString triangleAddress = "Refresh in progress...";
 
-    int carreState = 0;
+    int carreState;
     QString carreAddress = "Refresh in progress...";
 
-    int rondState = 0;
+    int rondState;
     QString rondAddress = "Refresh in progress...";
 };
 
