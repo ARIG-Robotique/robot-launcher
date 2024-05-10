@@ -77,11 +77,11 @@ signals:
 private:
     QString networkInfo = "Refresh in progress...";
 
-    DeviceState *nerellStatus = new DeviceState("nerell");
-    DeviceState *overlordStatus = new DeviceState("overlord");
-    DeviceState *triangleStatus = new DeviceState("pami-triangle");
-    DeviceState *carreStatus = new DeviceState("pami-carre");
-    DeviceState *rondStatus = new DeviceState("pami-rond");
+    DeviceState *nerellStatus = new DeviceState("nerell.local");
+    DeviceState *overlordStatus = new DeviceState("Overlord.local");
+    DeviceState *triangleStatus = new DeviceState("pami-triangle.local");
+    DeviceState *carreStatus = new DeviceState("pami-carre.local");
+    DeviceState *rondStatus = new DeviceState("pami-rond.local");
 
     int nerellState;
     QString nerellAddress = "Refresh in progress...";

@@ -26,7 +26,14 @@ void DeviceState::run() {
             if (hostInfo.addresses().isEmpty()) {
                 tmpAddress = "Unknown";
             } else {
-                tmpAddress = hostInfo.addresses().at(0).toString();
+                foreach (const QHostAddress entry, hostInfo.addresses()) {
+                    if (entry.protocol() != QAbstractSocket::IPv4Protocol || entry.isLoopback() ) {
+                        continue;
+                    }
+
+                    tmpAddress = entry.toString();
+                    break;
+                }
             }
             if (this->checkServerConnection()) {
                 currentState = 3;
