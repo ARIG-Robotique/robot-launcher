@@ -32,6 +32,7 @@ LauncherModel::LauncherModel(QObject *parent) : QObject(parent) {
     this->triangleStatus->start();
     this->carreStatus->start();
     this->rondStatus->start();
+    this->starStatus->start();
 }
 
 QString LauncherModel::getAction() {
@@ -105,6 +106,11 @@ void LauncherModel::refresh() {
     emit rondStateChanged(this->rondState);
     emit rondAddressChanged(this->rondAddress);
 
+    this->starState = this->starStatus->getLastState();
+    this->starAddress = this->starStatus->getAddress();
+    emit starStateChanged(this->starState);
+    emit starAddressChanged(this->starAddress);
+
     // Check si on a un fichier externe
     QFile runFile("/tmp/external-dir/run");
     QFile monitoringFile("/tmp/external-dir/monitoring");
@@ -158,4 +164,11 @@ int LauncherModel::getRondState() {
 }
 QString LauncherModel::getRondAddress() {
     return this->rondAddress;
+}
+
+int LauncherModel::getStarState() {
+    return this->starState;
+}
+QString LauncherModel::getStarAddress() {
+    return this->starAddress;
 }

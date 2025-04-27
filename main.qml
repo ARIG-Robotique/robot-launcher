@@ -96,6 +96,12 @@ ApplicationWindow {
                 address: LauncherModel.rondAddress
                 stateColor: getBooleanColor(LauncherModel.rondState)
             }
+            StateComponent {
+                id: stateStar
+                libelle: "Star"
+                address: LauncherModel.starAddress
+                stateColor: getBooleanColor(LauncherModel.starState)
+            }
 
             Image {
                 height: 250

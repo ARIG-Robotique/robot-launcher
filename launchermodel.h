@@ -28,6 +28,8 @@ class LauncherModel : public QObject
     Q_PROPERTY(QString carreAddress READ getCarreAddress NOTIFY carreAddressChanged)
     Q_PROPERTY(int rondState READ getRondState NOTIFY rondStateChanged)
     Q_PROPERTY(QString rondAddress READ getRondAddress NOTIFY rondAddressChanged)
+    Q_PROPERTY(int starState READ getStarState NOTIFY starStateChanged)
+    Q_PROPERTY(QString starAddress READ getStarAddress NOTIFY starAddressChanged)
 
     static LauncherModel* instance;
     LauncherModel(QObject *parent = nullptr);
@@ -60,6 +62,9 @@ public:
     int getRondState();
     QString getRondAddress();
 
+    int getStarState();
+    QString getStarAddress();
+
 signals:
     void actionChanged(QString newValue);
     void networkInfoChanged(QString newValue);
@@ -73,6 +78,8 @@ signals:
     void carreAddressChanged(QString newValue);
     void rondStateChanged(int newValue);
     void rondAddressChanged(QString newValue);
+    void starStateChanged(int newValue);
+    void starAddressChanged(QString newValue);
 
 private:
     QString networkInfo = "Refresh in progress...";
@@ -82,6 +89,7 @@ private:
     DeviceState *triangleStatus = new DeviceState("pami-triangle.local");
     DeviceState *carreStatus = new DeviceState("pami-carre.local");
     DeviceState *rondStatus = new DeviceState("pami-rond.local");
+    DeviceState *starStatus = new DeviceState("pami-star.local");
 
     int nerellState;
     QString nerellAddress = "Refresh in progress...";
@@ -97,6 +105,10 @@ private:
 
     int rondState;
     QString rondAddress = "Refresh in progress...";
+
+    int starState;
+    QString starAddress = "Refresh in progress...";
+
 };
 
 #endif // LAUNCHERMODEL_H
